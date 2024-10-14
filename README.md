@@ -1,6 +1,6 @@
-# PROJECT NAME HERE
+# Dora the Explorer
 
-### Level 3 Programming Project by YOUR NAME HERE
+### Level 3 Programming Project by Yuuki Heissner
 
 This project is assessed against [AS91906](https://www.nzqa.govt.nz/nqfdocs/ncea-resource/achievements/2019/as91906.pdf)
 

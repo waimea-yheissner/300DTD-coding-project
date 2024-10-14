@@ -1,7 +1,7 @@
 /**
  * ------------------------------------------------------------------------
  * PROJECT NAME HERE
- * Level 2 programming project
+ * Level 3 programming project
  *
  * by YOUR NAME HERE
  *
@@ -47,8 +47,8 @@ class GUI : JFrame(), ActionListener {
      * Configure the main window
      */
     private fun setupWindow() {
-        title = "Hello, World!"
-        contentPane.preferredSize = Dimension(300, 170)
+        title = "Dora the explorer"
+        contentPane.preferredSize = Dimension(414, 336,)
         defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
         isResizable = false
         layout = null
@@ -62,13 +62,13 @@ class GUI : JFrame(), ActionListener {
     private fun buildUI() {
         val baseFont = Font(Font.SANS_SERIF, Font.PLAIN, 20)
 
-        exampleLabel = JLabel("Hello, World!", SwingConstants.CENTER)
-        exampleLabel.bounds = Rectangle(30, 30, 240, 40)
+        exampleLabel = JLabel("Dora the explorer", SwingConstants.CENTER)
+        exampleLabel.bounds = Rectangle(589, 237, 201, 36)
         exampleLabel.font = baseFont
         add(exampleLabel)
 
-        exampleButton = JButton("Click Me")
-        exampleButton.bounds = Rectangle(30,100,240,40)
+        exampleButton = JButton("Start the adventure")
+        exampleButton.bounds = Rectangle(597,460,193,50)
         exampleButton.font = baseFont
         exampleButton.addActionListener(this)
         add(exampleButton)
