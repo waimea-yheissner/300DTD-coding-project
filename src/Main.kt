@@ -62,7 +62,7 @@ class Room(val name: String) {
 }
 class GUI : JFrame(), ActionListener {
 
-   val rooms = mutableListOf<Room>()
+    val rooms = mutableListOf<Room>()
 
     // Setup some properties to hold the UI elements
     private lateinit var mainLabel: JLabel
@@ -138,21 +138,12 @@ class GUI : JFrame(), ActionListener {
 
     private fun setupRooms(rooms: MutableList<Room>) {
         val library = Room("Old lIBRARY")
-        val school = Room("School")
-        val house = Room("Doras house")
-
+        val school = Room("Old lIBRARY")
         library.addEast(school)
 
-        rooms.add(house)
         rooms.add(library)
         rooms.add(school)
-
     }
-
-    private fun startGame() {
-
-    }
-
     /**
      * Handle any UI events
      */
