@@ -138,10 +138,12 @@ class GUI : JFrame(), ActionListener {
 
     private fun setupRooms(rooms: MutableList<Room>) {
         val library = Room("Old lIBRARY")
-        val school = Room("Old lIBRARY")
+        val school = Room("School")
+        val house = Room("Doras house")
 
         library.addEast(school)
 
+        rooms.add(house)
         rooms.add(library)
         rooms.add(school)
 
