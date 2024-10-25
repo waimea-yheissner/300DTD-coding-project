@@ -25,7 +25,7 @@ import javax.swing.*
  * Defines the UI and responds to events
  */
 
-class Room(val name: String) {
+class Room(val name: String, val description: String) {
     var north: Room? = null
     var east: Room? = null
     var south: Room? = null
@@ -63,14 +63,15 @@ class Room(val name: String) {
 class GUI : JFrame(), ActionListener {
 
     val rooms = mutableListOf<Room>()
+    var currentRoom : Room
 
     // Setup some properties to hold the UI elements
-    private lateinit var mainLabel: JLabel
-    private lateinit var startButton: JButton
-    private lateinit var goUpButton: JButton
-    private lateinit var goDownButton: JButton
-    private lateinit var goRightButton: JButton
-    private lateinit var goLeftButton: JButton
+    private lateinit var currentRoomLabel: JLabel
+    private lateinit var currentRoomDescLabel: JLabel
+    private lateinit var goNorthButton: JButton
+    private lateinit var goSouthButton: JButton
+    private lateinit var goEastButton: JButton
+    private lateinit var goWestButton: JButton
 
     /**
      * Create, build and run the UI
@@ -85,6 +86,9 @@ class GUI : JFrame(), ActionListener {
         // Show the app, centred on screen
         setLocationRelativeTo(null)
         isVisible = true
+
+        currentRoom = rooms.first()
+        showRoom()
     }
 
     /**
@@ -106,59 +110,145 @@ class GUI : JFrame(), ActionListener {
     private fun buildUI() {
         val baseFont = Font(Font.SANS_SERIF, Font.PLAIN, 20)
 
-        mainLabel = JLabel("Dora the explorer", SwingConstants.CENTER)
-        mainLabel.bounds = Rectangle(110, -7, 201, 36)
-        mainLabel.font = baseFont
-        add(mainLabel)
+//        mainLabel = JLabel("Dora the explorer", SwingConstants.CENTER)
+//        mainLabel.bounds = Rectangle(110, -7, 201, 36)
+//        mainLabel.font = baseFont
+//        add(mainLabel)
 
-        goUpButton = JButton("Go Up")
-        goUpButton.bounds = Rectangle(150,25,120,32)
-        goUpButton.font = baseFont
-        goUpButton.addActionListener(this)
-        add(goUpButton)
+        currentRoomLabel = JLabel("current room", SwingConstants.CENTER)
+        currentRoomLabel.bounds = Rectangle(110, 130, 201, 36)
+        currentRoomLabel.font = baseFont
+        add(currentRoomLabel)
 
-        goDownButton = JButton("Go Down")
-        goDownButton.bounds = Rectangle(150,293,120,32)
-        goDownButton.font = baseFont
-        goDownButton.addActionListener(this)
-        add(goDownButton)
+        currentRoomDescLabel = JLabel("current room description", SwingConstants.CENTER)
+        currentRoomDescLabel.bounds = Rectangle(110, 170, 201, 36)
+        currentRoomDescLabel.font = baseFont
+        add(currentRoomDescLabel)
 
-        goRightButton = JButton("→")
-        goRightButton.bounds = Rectangle(338,115,60,32)
-        goRightButton.font = baseFont
-        goRightButton.addActionListener(this)
-        add(goRightButton)
+        goNorthButton = JButton("↑")
+        goNorthButton.bounds = Rectangle(150,25,120,32)
+        goNorthButton.font = baseFont
+        goNorthButton.addActionListener(this)
+        add(goNorthButton)
 
-        goLeftButton = JButton("←")
-        goLeftButton.bounds = Rectangle(50,115,60,32)
-        goLeftButton.font = baseFont
-        goLeftButton.addActionListener(this)
-        add(goLeftButton)
+        goSouthButton = JButton("↓")
+        goSouthButton.bounds = Rectangle(150,293,120,32)
+        goSouthButton.font = baseFont
+        goSouthButton.addActionListener(this)
+        add(goSouthButton)
+
+        goEastButton = JButton("→")
+        goEastButton.bounds = Rectangle(338,148,60,32)
+        goEastButton.font = baseFont
+        goEastButton.addActionListener(this)
+        add(goEastButton)
+
+        goWestButton = JButton("←")
+        goWestButton.bounds = Rectangle(50,148,60,32)
+        goWestButton.font = baseFont
+        goWestButton.addActionListener(this)
+        add(goWestButton)
     }
 
     private fun setupRooms(rooms: MutableList<Room>) {
-        val library = Room("Old lIBRARY")
-        val school = Room("Old lIBRARY")
-        library.addEast(school)
+        val library = Room("Old lIBRARY", "has a lot of books")
+        val school = Room("School","")
+        val house = Room("Doras house","")
+        val field = Room("open field","")
+        val cave = Room("Big cave","")
+        val beach = Room("Beach","")
+        val mountain = Room("Mountain","")
 
+
+        //setting up map
+        library.addEast(school)
+        library.addNorth(cave)
+        school.addEast(house)
+        field.addNorth(cave)
+        cave.addEast(beach)
+        field.addSouth(mountain)
+
+
+        //adding locations
         rooms.add(library)
         rooms.add(school)
+        rooms.add(house)
+        rooms.add(field)
+        rooms.add(cave)
+        rooms.add(mountain)
     }
     /**
      * Handle any UI events
      */
+
     override fun actionPerformed(e: ActionEvent?) {
         when (e?.source) {
-            startButton -> exampleAction()
+            goWestButton -> goWest()
+            goEastButton -> goEast()
+            goNorthButton -> goNorth()
+            goSouthButton -> goSouth()
         }
     }
 
+    private fun goNorth() {
+        if (currentRoom.north !=null) {
+            currentRoom = currentRoom.north!!
+            showRoom()
+        }
+    }
+
+    private fun goSouth() {
+        if (currentRoom.south !=null) {
+            currentRoom = currentRoom.south!!
+            showRoom()
+        }
+    }
+
+
+    private fun goEast() {
+        if (currentRoom.east !=null) {
+            currentRoom = currentRoom.east!!
+            showRoom()
+        }
+    }
+
+    private fun goWest() {
+        if (currentRoom.west != null) {
+            currentRoom = currentRoom.west!!
+            showRoom()
+        }
+    }
+
+    private fun showRoom() {
+        if (currentRoom.west != null) {
+            goWestButton.isEnabled = true
+        } else {
+            goWestButton.isEnabled = false
+        }
+        currentRoomLabel.text = currentRoom.name
+        currentRoomDescLabel.text = currentRoom.description
+
+        if (currentRoom.east != null) {
+            goEastButton.isEnabled = true
+        } else {
+            goEastButton.isEnabled = false
+        }
+
+        if (currentRoom.north != null) {
+            goNorthButton.isEnabled = true
+        } else {
+            goNorthButton.isEnabled = false
+        }
+
+        if (currentRoom.south != null) {
+            goSouthButton.isEnabled = true
+        } else {
+            goSouthButton.isEnabled = false
+        }
+    }
     /**
      * An Example Action
      */
-    private fun exampleAction() {
-        mainLabel.text = "You Clicked!"
-    }
 }
 
 
