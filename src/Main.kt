@@ -25,11 +25,12 @@ import javax.swing.*
  * Defines the UI and responds to events
  */
 
-class Room(val name: String, val description: String) {
+class Room(val name: String, val description: String, val goal: Boolean = false, val isTrap: Boolean = false ) {
     var north: Room? = null
     var east: Room? = null
     var south: Room? = null
     var west: Room? = null
+
 
     fun addNorth(room: Room) {
         if (north == null) {
@@ -72,6 +73,7 @@ class GUI : JFrame(), ActionListener {
     private lateinit var goSouthButton: JButton
     private lateinit var goEastButton: JButton
     private lateinit var goWestButton: JButton
+    private lateinit var restartButton: JButton
 
     /**
      * Create, build and run the UI
@@ -80,7 +82,7 @@ class GUI : JFrame(), ActionListener {
         setupWindow()
         buildUI()
         setupRooms(rooms)
-
+        restart()
 
 
         // Show the app, centred on screen
@@ -89,6 +91,7 @@ class GUI : JFrame(), ActionListener {
 
         currentRoom = rooms.first()
         showRoom()
+
     }
 
     /**
@@ -148,15 +151,21 @@ class GUI : JFrame(), ActionListener {
         goWestButton.font = baseFont
         goWestButton.addActionListener(this)
         add(goWestButton)
+
+        restartButton = JButton("restart")
+        restartButton.bounds = Rectangle(140,250,140,32)
+        restartButton.font = baseFont
+        restartButton.addActionListener(this)
+        add(restartButton)
     }
 
     private fun setupRooms(rooms: MutableList<Room>) {
-        val library = Room("Old lIBRARY", "has a lot of books")
+        val library = Room("Old lIBRARY", "Try to escape to the end without dying!!!")
         val school = Room("School","")
-        val house = Room("Doras house","")
+        val house = Room("Doras house","YOU WON!!!", true)
         val field = Room("open field","")
         val cave = Room("Big cave","")
-        val beach = Room("Beach","")
+        val beach = Room("Beach","YOU DIED", false, true)
         val mountain = Room("Mountain","")
 
 
@@ -187,7 +196,13 @@ class GUI : JFrame(), ActionListener {
             goEastButton -> goEast()
             goNorthButton -> goNorth()
             goSouthButton -> goSouth()
+            restartButton -> restart()
         }
+    }
+
+    private fun restart() {
+        currentRoom = rooms.first()
+        showRoom()
     }
 
     private fun goNorth() {
@@ -220,13 +235,38 @@ class GUI : JFrame(), ActionListener {
     }
 
     private fun showRoom() {
+        currentRoomLabel.text = currentRoom.name
+        currentRoomDescLabel.text = currentRoom.description
+
+        if (currentRoom.isTrap) {
+            // No way out!
+            goWestButton.isEnabled = false
+            goEastButton.isEnabled = false
+            goSouthButton.isEnabled = false
+            goNorthButton.isEnabled = false
+
+            restartButton.isVisible = true
+
+
+            return
+        }
+
+        if (currentRoom.goal) {
+            goWestButton.isEnabled = false
+            goEastButton.isEnabled = false
+            goSouthButton.isEnabled = false
+            goNorthButton.isEnabled = false
+
+            restartButton.isVisible = true
+
+            return
+        }
+
         if (currentRoom.west != null) {
             goWestButton.isEnabled = true
         } else {
             goWestButton.isEnabled = false
         }
-        currentRoomLabel.text = currentRoom.name
-        currentRoomDescLabel.text = currentRoom.description
 
         if (currentRoom.east != null) {
             goEastButton.isEnabled = true
@@ -245,6 +285,8 @@ class GUI : JFrame(), ActionListener {
         } else {
             goSouthButton.isEnabled = false
         }
+
+        restartButton.isVisible = false
     }
     /**
      * An Example Action
