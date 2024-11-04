@@ -4,18 +4,18 @@
 
 The project involves the programming of a game.
 
-BRIEF DESCRIPTION OF GAME HERE
-BRIEF DESCRIPTION OF GAME HERE
-BRIEF DESCRIPTION OF GAME HERE
+The player will be playing as Dora the explorer and try to get back to her house without dying.
 
 ### Game Features and Rules
 
 The game has the following features and/or rules:
 
-- GAME FEATURE / RULE
-- GAME FEATURE / RULE
-- GAME FEATURE / RULE
-- GAME FEATURE / RULE
+- player will start in the library
+- Players can go North, East, South, West. 
+- If you reach certain rooms you will die
+- There are 14 rooms that player can go to 
+- The goal is to find dora's house
+
 
 ---
 
@@ -23,104 +23,24 @@ The game has the following features and/or rules:
 
 The following game features / functionality and player actions will need to be tested:
 
-- FUNCTIONALITY / FEATURE / ACTION TO TEST
-- FUNCTIONALITY / FEATURE / ACTION TO TEST
-- FUNCTIONALITY / FEATURE / ACTION TO TEST
-- FUNCTIONALITY / FEATURE / ACTION TO TEST
-- FUNCTIONALITY / FEATURE / ACTION TO TEST
+- If players can go all directions
+- If the locations are linked properly
+- If the restart button works 
+- If players can die
+- if image shows after dying
+- If the wining condition works
 
 The following tests will be run against the completed game. The tests should result in the expected outcomes shown.
 
 
-### TEST NAME HERE
-
-TEST DESCRIPTION HERE
-
-#### Test Data / Actions to Use
-
-TEST DATA TO USE DETAILED HERE
-
-#### Expected Outcome
-
-EXPECTED OUTCOME DETAILED HERE
-
-
-### TEST NAME HERE
-
-TEST DESCRIPTION HERE
-
-#### Test Data / Actions to Use
-
-TEST DATA TO USE DETAILED HERE
-
-#### Expected Outcome
-
-EXPECTED OUTCOME DETAILED HERE
-
-
-### TEST NAME HERE
-
-TEST DESCRIPTION HERE
-
-#### Test Data / Actions to Use
-
-TEST DATA TO USE DETAILED HERE
-
-#### Expected Outcome
-
-EXPECTED OUTCOME DETAILED HERE
-
-
-### TEST NAME HERE
-
-TEST DESCRIPTION HERE
-
-#### Test Data / Actions to Use
-
-TEST DATA TO USE DETAILED HERE
-
-#### Expected Outcome
-
-EXPECTED OUTCOME DETAILED HERE
-
-
----
-
-
 ## Evidence / Results of Testing
 
-### TEST NAME HERE
+Here is a video showing all the functionality and testing that this game has.
 
-ACTUAL RESULTS OF TESTING SHOWN HERE
-
-![](images/placeholder.jpg)
-
-NOTES REGARDING THE RESULTS HERE
+https://mywaimeaschool-my.sharepoint.com/:v:/g/personal/yheissner_waimea_school_nz/EWOz0pOPJhhDld_zqHmpV7EB9uvcfSBc6fq3lIt2WTjUbA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=jCdrTQ
 
 
-### TEST NAME HERE
-
-ACTUAL RESULTS OF TESTING SHOWN HERE
-
-![](images/placeholder.jpg)
-
-NOTES REGARDING THE RESULTS HERE
 
 
-### TEST NAME HERE
 
-ACTUAL RESULTS OF TESTING SHOWN HERE
-
-![](images/placeholder.jpg)
-
-NOTES REGARDING THE RESULTS HERE
-
-
-### TEST NAME HERE
-
-ACTUAL RESULTS OF TESTING SHOWN HERE
-
-![](images/placeholder.jpg)
-
-NOTES REGARDING THE RESULTS HERE
 

@@ -69,6 +69,8 @@ class GUI : JFrame(), ActionListener {
     // Setup some properties to hold the UI elements
     private lateinit var currentRoomLabel: JLabel
     private lateinit var currentRoomDescLabel: JLabel
+    private lateinit var imageLabel: JLabel
+    private lateinit var youdiedImageIcon: ImageIcon
     private lateinit var goNorthButton: JButton
     private lateinit var goSouthButton: JButton
     private lateinit var goEastButton: JButton
@@ -79,10 +81,12 @@ class GUI : JFrame(), ActionListener {
      * Create, build and run the UI
      */
     init {
+        loadImages()
         setupWindow()
         buildUI()
         setupRooms(rooms)
         restart()
+
 
 
         // Show the app, centred on screen
@@ -110,13 +114,20 @@ class GUI : JFrame(), ActionListener {
     /**
      * Populate the UI
      */
+
+    private fun loadImages() {
+        var youdiedImage = ImageIcon("src/images/youdied.jpg").image
+        youdiedImage = youdiedImage.getScaledInstance(420, 290, Image.SCALE_SMOOTH)
+        youdiedImageIcon = ImageIcon(youdiedImage)
+    }
+
     private fun buildUI() {
         val baseFont = Font(Font.SANS_SERIF, Font.PLAIN, 20)
 
-//        mainLabel = JLabel("Dora the explorer", SwingConstants.CENTER)
-//        mainLabel.bounds = Rectangle(110, -7, 201, 36)
-//        mainLabel.font = baseFont
-//        add(mainLabel)
+        imageLabel = JLabel()
+        imageLabel.bounds =  Rectangle(0, -60, 420, 340)
+        imageLabel.icon = youdiedImageIcon
+        add(imageLabel)
 
         currentRoomLabel = JLabel("current room", SwingConstants.CENTER)
         currentRoomLabel.bounds = Rectangle(110, 130, 201, 36)
@@ -124,58 +135,72 @@ class GUI : JFrame(), ActionListener {
         add(currentRoomLabel)
 
         currentRoomDescLabel = JLabel("current room description", SwingConstants.CENTER)
-        currentRoomDescLabel.bounds = Rectangle(110, 170, 201, 36)
+        currentRoomDescLabel.bounds = Rectangle(110, 170, 201, 72)
         currentRoomDescLabel.font = baseFont
         add(currentRoomDescLabel)
 
         goNorthButton = JButton("↑")
-        goNorthButton.bounds = Rectangle(150,25,120,32)
+        goNorthButton.bounds = Rectangle(185,20,50,32)
         goNorthButton.font = baseFont
         goNorthButton.addActionListener(this)
         add(goNorthButton)
 
         goSouthButton = JButton("↓")
-        goSouthButton.bounds = Rectangle(150,293,120,32)
+        goSouthButton.bounds = Rectangle(185,298,50,32)
         goSouthButton.font = baseFont
         goSouthButton.addActionListener(this)
         add(goSouthButton)
 
         goEastButton = JButton("→")
-        goEastButton.bounds = Rectangle(338,148,60,32)
+        goEastButton.bounds = Rectangle(341,148,50,32)
         goEastButton.font = baseFont
         goEastButton.addActionListener(this)
         add(goEastButton)
 
         goWestButton = JButton("←")
-        goWestButton.bounds = Rectangle(50,148,60,32)
+        goWestButton.bounds = Rectangle(30,148,50,32)
         goWestButton.font = baseFont
         goWestButton.addActionListener(this)
         add(goWestButton)
 
         restartButton = JButton("restart")
-        restartButton.bounds = Rectangle(140,250,140,32)
+        restartButton.bounds = Rectangle(140,290,140,32)
         restartButton.font = baseFont
         restartButton.addActionListener(this)
         add(restartButton)
     }
 
     private fun setupRooms(rooms: MutableList<Room>) {
-        val library = Room("Old lIBRARY", "Try to escape to the end without dying!!!")
-        val school = Room("School","")
-        val house = Room("Doras house","YOU WON!!!", true)
-        val field = Room("open field","")
-        val cave = Room("Big cave","")
-        val beach = Room("Beach","YOU DIED", false, true)
-        val mountain = Room("Mountain","")
+        val library = Room("Old LIBRARY", "Try to find a way home...")
+        val school = Room("School","Doras school")
+        val house = Room("Doras house","You made it home!!!!", true)
+        val field = Room("open field","You can only see grass")
+        val cave = Room("Big cave","Very dark in here")
+        val beach = Room("Beach","The sea wasn't calling for you YOU DIED", false, true)
+        val mountain = Room("Mountain","A mountain full of goats")
+        val riddleTree = Room("Riddle Tree","What is at the end of the rainbow?")
+        val trollBridge = Room("Troll Bridge","Dont look down")
+        val Volcano  = Room("Volcano","It is pretty hot")
+        val crocodileLake = Room("Crocodile Lake","There is too many to count")
+        val gooeyGeyser = Room("Gooey Geyser","Danger: very gooey")
+        val dragonMountain = Room("Dragon Mountain","The dragon lord myles sleeps on this mountain")
+        val nuttyForest = Room("Nutty Forest","You can find any nuts here")
+        val hauntedHouse = Room("Haunted House","There might be ghosts", false, true)
 
 
         //setting up map
         library.addEast(school)
         library.addNorth(cave)
-        school.addEast(house)
-        field.addNorth(cave)
+        library.addWest(riddleTree)
+        library.addSouth(trollBridge)
+        trollBridge.addEast(dragonMountain)
+        school.addEast(field)
+        school.addNorth(beach)
+        field.addSouth(nuttyForest)
         cave.addEast(beach)
-        field.addSouth(mountain)
+        nuttyForest.addSouth(house)
+        riddleTree.addNorth(hauntedHouse)
+        dragonMountain.addNorth(school)
 
 
         //adding locations
@@ -185,6 +210,14 @@ class GUI : JFrame(), ActionListener {
         rooms.add(field)
         rooms.add(cave)
         rooms.add(mountain)
+        rooms.add(riddleTree)
+        rooms.add(Volcano)
+        rooms.add(trollBridge)
+        rooms.add(crocodileLake)
+        rooms.add(gooeyGeyser)
+        rooms.add(dragonMountain)
+        rooms.add(nuttyForest)
+        rooms.add(hauntedHouse)
     }
     /**
      * Handle any UI events
@@ -236,7 +269,7 @@ class GUI : JFrame(), ActionListener {
 
     private fun showRoom() {
         currentRoomLabel.text = currentRoom.name
-        currentRoomDescLabel.text = currentRoom.description
+        currentRoomDescLabel.text = "<html>${currentRoom.description}"
 
         if (currentRoom.isTrap) {
             // No way out!
@@ -245,10 +278,27 @@ class GUI : JFrame(), ActionListener {
             goSouthButton.isEnabled = false
             goNorthButton.isEnabled = false
 
+            currentRoomDescLabel.isEnabled = false
+            currentRoomDescLabel.isEnabled = false
+            goNorthButton.isVisible = false
+            goSouthButton.isVisible = false
+            goEastButton.isVisible = false
+            goWestButton.isVisible = false
             restartButton.isVisible = true
+            imageLabel.isVisible = true
 
 
             return
+        }
+        else {
+            imageLabel.isVisible = false
+            currentRoomDescLabel.isEnabled = true
+            currentRoomDescLabel.isEnabled = true
+            goNorthButton.isVisible = true
+            goSouthButton.isVisible = true
+            goEastButton.isVisible = true
+            goWestButton.isVisible = true
+            restartButton.isVisible = false
         }
 
         if (currentRoom.goal) {
@@ -256,6 +306,11 @@ class GUI : JFrame(), ActionListener {
             goEastButton.isEnabled = false
             goSouthButton.isEnabled = false
             goNorthButton.isEnabled = false
+
+            goNorthButton.isVisible = false
+            goSouthButton.isVisible = false
+            goEastButton.isVisible = false
+            goWestButton.isVisible = false
 
             restartButton.isVisible = true
 
