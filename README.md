@@ -8,10 +8,7 @@ This project is assessed against [AS91906](https://www.nzqa.govt.nz/nqfdocs/ncea
 
 The project involves the programming of a game.
 
-BRIEF PROJECT DESCRIPTION HERE
-BRIEF PROJECT DESCRIPTION HERE
-BRIEF PROJECT DESCRIPTION HERE
-BRIEF PROJECT DESCRIPTION HERE
+The player will be playing as Dora the explorer and try to get back to her house without dying.
 
 
 ## Source Code
